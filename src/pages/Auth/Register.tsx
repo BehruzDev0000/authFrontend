@@ -1,9 +1,42 @@
-import { Link } from "react-router-dom"
+import { useState, type SubmitEvent } from "react"
+import { Button, AuthInput, PageDirectional,PathPages} from "../../components"
+import axios from "axios"
+import toast ,{ Toaster } from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
+import { LoadingBlack } from "../../assets/images"
 
 const Register = () => {
+  const [loading, setLoading] = useState(false)
+  const navigate=useNavigate()
+
+  const handleRegister = (e:SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    const data={
+      name:e.target.firstName.value + " " + e.target.lastName.value,
+      email:e.target.email.value,
+      password:e.target.password.value,
+      role:"admin",
+      avatar:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kSSoomJ9hiFXmiF2RdZlwx72Y23XsT6iwQ&s"
+    }
+    
+    
+    axios.post('https://api.escuelajs.co/api/v1/users/',data).then(res=>{
+      setLoading(false)
+      toast.success(`Muvaffaqiyatli ${res.data.name} qoshildi`)
+
+     setTimeout(()=>{
+       navigate(PathPages.login)
+     },1000)
+    }).finally(()=>setLoading(false))
+    e.target.reset()
+  }
   return (
      <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden flex items-center justify-center px-4">
-   
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="absolute inset-0">
         <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-48 -right-48 h-[620px] w-[620px] rounded-full bg-white/10 blur-3xl" />
@@ -18,52 +51,20 @@ const Register = () => {
               <h2 className="text-3xl font-semibold tracking-tight">Register</h2>
               <p className="mt-2 text-sm text-white/60">Enter your details below</p>
 
-              <form className="mt-8 space-y-4" autoComplete="off" spellCheck="false">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <input
-                    placeholder="First name"
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none focus:border-white/20"
-                  />
-                  <input
-                    placeholder="Last name"
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none focus:border-white/20"
-                  />
-                </div>
+              <form onSubmit={handleRegister} className="mt-8 space-y-4" autoComplete="off" spellCheck="false">
+               
+                  <AuthInput name="firstName" placeholder="First name" type="text" />
+                  <AuthInput name="lastName" placeholder="Last name" type="text" />
+                <AuthInput name="email" placeholder="Email address" type="email" />
 
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none focus:border-white/20"
-                />
+                <AuthInput name="password" placeholder="Password" type="text" />
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none focus:border-white/20"
-                />
+            
 
-                <label className="flex items-center gap-3 text-sm text-white/70 pt-1">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-white/20 bg-white/10 accent-emerald-400"
-                  />
-                  I agree to the Terms
-                </label>
-
-                <button
-                  type="button"
-                  className="w-full mt-2 rounded-2xl bg-white py-4 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5"
-                >
-                  Create account
-                </button>
-
-                <p className="pt-2 text-center text-sm text-white/60">
-                  Already have an account?{" "}
-                  <Link to='/' className="text-white hover:underline underline-offset-4">
-                  
-                    Sign in
-                    </Link>
-                </p>
+             <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !justify-center" : ""}>
+                {loading ? <img src={LoadingBlack} className="h-[30px] w-[30px]" alt="Loading..." /> : 'Create account'}
+                </Button>
+                <PageDirectional path="/" />
               </form>
             </div>
 

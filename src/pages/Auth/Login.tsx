@@ -1,9 +1,36 @@
-import { Link } from "react-router-dom";
+
+import {Button,AuthInput,PageDirectional} from "../../components";
+import { useContext, useState, type SubmitEvent } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { Context } from "../../context/GlobalContext";
+import { LoadingBlack } from "../../assets/images";
 
 const Login = () => {
+  const [loading,setLoading]=useState(false)
+  const {setToken}=useContext(Context)
+  const handleLogin=(e:SubmitEvent<HTMLFormElement>)=>{
+    setLoading(true)
+    e.preventDefault();
+    const data={
+      email:e.target.email.value,
+      password:e.target.password.value
+    }
+    
+    axios.post('https://api.escuelajs.co/api/v1/auth/login',data).then(res=>{
+       toast.success("Muvaffaqiyatli kirdinggiz")
+      setTimeout(() => {
+       setToken(res.data.access_token)
+      }, 1000);
+    }).catch(()=>toast.error("Bunday foydalanuvchi topilmadi")).finally(()=>setLoading(false))
+    e.target.reset();
+  }
   return (
      <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden flex items-center justify-center px-4">
-    
+    <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
       <div className="absolute inset-0">
         <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-48 -right-48 h-[620px] w-[620px] rounded-full bg-white/10 blur-3xl" />
@@ -21,46 +48,23 @@ const Login = () => {
                 Welcome back, please sign in
               </p>
 
-              <form className="mt-8 space-y-4" autoComplete="off" spellCheck="false">
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none transition focus:border-white/20"
-                />
+              <form onSubmit={handleLogin} className="mt-8 space-y-4" autoComplete="off" spellCheck="false">
+                <AuthInput name="email" placeholder="Email address" type="email" />
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none transition focus:border-white/20"
-                />
+                <AuthInput name="password" placeholder="Password" type="text" />
 
                 <div className="flex items-center justify-between text-sm text-white/60">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-white/20 accent-emerald-400"
-                    />
-                    Remember me
-                  </label>
 
                   <a href="#" className="hover:text-white transition">
                     Forgot password?
                   </a>
                 </div>
 
-                <button
-                  type="button"
-                  className="w-full mt-2 rounded-2xl bg-white py-4 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5"
-                >
-                  Sign in
-                </button>
+              <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !text-center" : ""}>
+                {loading ? <img src={LoadingBlack} className="h-[20px] w-[20px]" alt="Loading..." /> : 'Log In'}
+                </Button>
 
-                <p className="pt-3 text-center text-sm text-white/60">
-                  Don’t have an account?{" "}
-               
-                    <Link to="/register" className="text-white hover:underline underline-offset-4">Create one</Link>
-                   
-                </p>
+                <PageDirectional path='/register' />
               </form>
             </div>
 
