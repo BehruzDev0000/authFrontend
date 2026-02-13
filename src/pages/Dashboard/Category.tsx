@@ -1,6 +1,8 @@
+import AllCategories from "../../components/categories"
+
 const Category = () => {
   return (
-    <div>Category</div>
+    <AllCategories/>
   )
 }
 

@@ -1,30 +1,15 @@
 
 import {Button,AuthInput,PageDirectional} from "../../components";
 import { useContext, useState, type SubmitEvent } from "react";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 import { Context } from "../../context/GlobalContext";
 import { LoadingBlack } from "../../assets/images";
+import LoginFn from "../../services/LoginFn";
 
 const Login = () => {
   const [loading,setLoading]=useState(false)
   const {setToken}=useContext(Context)
-  const handleLogin=(e:SubmitEvent<HTMLFormElement>)=>{
-    setLoading(true)
-    e.preventDefault();
-    const data={
-      email:e.target.email.value,
-      password:e.target.password.value
-    }
-    
-    axios.post('https://api.escuelajs.co/api/v1/auth/login',data).then(res=>{
-       toast.success("Muvaffaqiyatli kirdinggiz")
-      setTimeout(() => {
-       setToken(res.data.access_token)
-      }, 1000);
-    }).catch(()=>toast.error("Bunday foydalanuvchi topilmadi")).finally(()=>setLoading(false))
-    e.target.reset();
-  }
+  const handleLogin=(e:SubmitEvent<HTMLFormElement>)=>LoginFn(setLoading,e,setToken)
   return (
      <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden flex items-center justify-center px-4">
     <Toaster
@@ -60,8 +45,8 @@ const Login = () => {
                   </a>
                 </div>
 
-              <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !text-center" : ""}>
-                {loading ? <img src={LoadingBlack} className="h-[20px] w-[20px]" alt="Loading..." /> : 'Log In'}
+              <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !justify-center !text-center" : ""}>
+                {loading ? <img src={LoadingBlack} className="h-[30px] w-[30px]" alt="Loading..." /> : 'Log In'}
                 </Button>
 
                 <PageDirectional path='/register' />

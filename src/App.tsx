@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { Context } from "./context/GlobalContext"
-import { AuthRoute, DasboardRoute } from "./routes"
+import { AuthRoute, DashboardRoute } from "./routes"
 function App() {
 
 const {token}=useContext(Context)
 
 return token?(
- <DasboardRoute />
+ <DashboardRoute />
 ):(
  <AuthRoute />
 )

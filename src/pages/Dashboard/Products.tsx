@@ -1,6 +1,8 @@
+import AllProducts from "../../components/products"
+
 const Products = () => {
   return (
-    <div>Products</div>
+    <AllProducts/>
   )
 }
 

@@ -1,36 +1,15 @@
 import { useState, type SubmitEvent } from "react"
-import { Button, AuthInput, PageDirectional,PathPages} from "../../components"
-import axios from "axios"
-import toast ,{ Toaster } from "react-hot-toast"
+import { Button, AuthInput, PageDirectional} from "../../components"
+import { Toaster } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import { LoadingBlack } from "../../assets/images"
+import RegisterFn from "../../services/Register"
 
 const Register = () => {
   const [loading, setLoading] = useState(false)
   const navigate=useNavigate()
 
-  const handleRegister = (e:SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    const data={
-      name:e.target.firstName.value + " " + e.target.lastName.value,
-      email:e.target.email.value,
-      password:e.target.password.value,
-      role:"admin",
-      avatar:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kSSoomJ9hiFXmiF2RdZlwx72Y23XsT6iwQ&s"
-    }
-    
-    
-    axios.post('https://api.escuelajs.co/api/v1/users/',data).then(res=>{
-      setLoading(false)
-      toast.success(`Muvaffaqiyatli ${res.data.name} qoshildi`)
-
-     setTimeout(()=>{
-       navigate(PathPages.login)
-     },1000)
-    }).finally(()=>setLoading(false))
-    e.target.reset()
-  }
+  const handleRegister = (e:SubmitEvent<HTMLFormElement>) => RegisterFn(e,setLoading,navigate)
   return (
      <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden flex items-center justify-center px-4">
       <Toaster
