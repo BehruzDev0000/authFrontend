@@ -1,15 +1,17 @@
 interface AuthInputProps {
   placeholder: string
-  type:"text"|"email"|"password"
+  type:"text"|"email"|"password"|"number"
   extraClass?: string
-  name:"firstName"|"lastName"|"email"|"password"
+  name:"firstName"|"lastName"|"email"|"password"|"name"|"price"|"description"|"image"|"category"
+  value?:string|number
 }
 
-const AuthInput = ({placeholder,type,extraClass,name}: AuthInputProps) => {
+const AuthInput = ({placeholder,type,extraClass,name,value}: AuthInputProps) => {
   return (
      <input
      type={type}
      name={name}
+     value={value || ''}
    required     
     placeholder={placeholder}
     className={`w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none focus:border-white/20 ${extraClass}`}

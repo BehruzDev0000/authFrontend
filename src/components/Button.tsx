@@ -8,10 +8,10 @@ interface ButtonProps {
 }
 const Button:FC<ButtonProps> = ({ type, children, extraClass, onClick }) => {
   return (
-    <button
-      onClick={onClick}
+   <button
       type={type}
-      className={`w-full mt-2 rounded-2xl bg-white py-4 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 ${extraClass}`}
+      onClick={onClick}
+      className={`rounded-2xl bg-white py-2.5 px-5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 ${extraClass ?? ""}`}
     >
       {children}
     </button>

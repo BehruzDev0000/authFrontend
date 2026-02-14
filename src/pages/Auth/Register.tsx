@@ -32,11 +32,11 @@ const Register = () => {
 
               <form onSubmit={handleRegister} className="mt-8 space-y-4" autoComplete="off" spellCheck="false">
                
-                  <AuthInput name="firstName" placeholder="First name" type="text" />
-                  <AuthInput name="lastName" placeholder="Last name" type="text" />
+                  <AuthInput name="firstName" placeholder="First name" type="text"  />
+                  <AuthInput name="lastName" placeholder="Last name" type="text"  />
                 <AuthInput name="email" placeholder="Email address" type="email" />
 
-                <AuthInput name="password" placeholder="Password" type="text" />
+                <AuthInput name="password" placeholder="Password" type="text"/>
 
             
 

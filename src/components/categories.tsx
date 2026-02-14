@@ -35,7 +35,7 @@ const AllCategories = () => {
   );
 
   return (
-    <div className="w-[80%] mx-auto pt-[40px] pb-[40px]">
+    <div className="w-full mx-auto pt-[40px] pb-[40px]">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Categories</h2>
 

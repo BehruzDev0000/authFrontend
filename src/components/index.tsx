@@ -1,4 +1,6 @@
 import AuthInput from "./AuthInput";
 import { PathPages,PageDirectional } from "./PathPages";
 import Button from "./Button";
-export { AuthInput, PathPages, Button,PageDirectional };
+import LogOutModal from "./LogOutModal";
+import Modal from "./modal";
+export { AuthInput, PathPages, Button,PageDirectional ,LogOutModal,Modal};

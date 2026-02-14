@@ -7,6 +7,9 @@ export const PathPages = {
   category: "/category",
   products: "/products",
   notFound: "*",
+  create: "/products/create",
+  update: "/products/:id/update/",
+  productMore:"/products/:id"
 };
 export const PageDirectional = ({ path }: { path: "/" | "/register" }) => {
   return path === "/register" ? (
