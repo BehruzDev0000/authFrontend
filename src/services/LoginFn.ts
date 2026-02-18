@@ -14,7 +14,7 @@ const LoginFn = (setLoading:Dispatch<SetStateAction<boolean>>,e:SubmitEvent<HTML
        toast.success("Muvaffaqiyatli kirdinggiz")
       setTimeout(() => {
        setToken(res.data.access_token)
-      }, 1000);
+      }, 2000);
     }).catch(()=>toast.error("Bunday foydalanuvchi topilmadi")).finally(()=>setLoading(false))
     e.target.reset();
   }

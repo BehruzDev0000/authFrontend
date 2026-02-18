@@ -39,10 +39,6 @@ const Login = () => {
                 <AuthInput name="password" placeholder="Password" type="text" />
 
                 <div className="flex items-center justify-between text-sm text-white/60">
-
-                  <a href="#" className="hover:text-white transition">
-                    Forgot password?
-                  </a>
                 </div>
 
               <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !justify-center !text-center" : ""}>

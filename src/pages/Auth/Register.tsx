@@ -40,7 +40,7 @@ const Register = () => {
 
             
 
-             <Button type="submit" extraClass={loading ? "!h-[52px] !flex !items-center !justify-center" : ""}>
+             <Button type="submit" extraClass={loading ? "mx-auto" : ""}>
                 {loading ? <img src={LoadingBlack} className="h-[30px] w-[30px]" alt="Loading..." /> : 'Create account'}
                 </Button>
                 <PageDirectional path="/" />

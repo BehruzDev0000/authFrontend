@@ -11,7 +11,7 @@ const Button:FC<ButtonProps> = ({ type, children, extraClass, onClick }) => {
    <button
       type={type}
       onClick={onClick}
-      className={`rounded-2xl bg-white py-2.5 px-5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 ${extraClass ?? ""}`}
+      className={`rounded-2xl w-full bg-white py-2.5 px-5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 ${extraClass ?? ""}`}
     >
       {children}
     </button>

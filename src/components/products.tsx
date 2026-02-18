@@ -85,7 +85,7 @@ const AllProducts = () => {
             </select>
           </div>
         </div>
-              <Button type="button" extraClass="w-[20%] py-[14px] !bg-blue-500 text-white text-sm font-semibold cursor-pointer">
+              <Button type="button" extraClass="!w-[20%] py-[14px] !bg-blue-500 text-white text-sm font-semibold cursor-pointer">
                 <Link to="/products/create">Create Product</Link>
               </Button>
         <input
