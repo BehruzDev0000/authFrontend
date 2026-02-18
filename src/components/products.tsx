@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState, type ChangeEvent, type MouseEvent } from "react";
-import instance from "../hooks/instance";
+import {instance,debounce} from "../hooks";
 import type { ProductType } from "../@types/ProductType";
 import type { CategoryType } from "../@types/CategoryType";
 import { EditIcon, LikeIcon, MoreIcon } from "../assets/icons";
 import { Context } from "../context/GlobalContext";
-import debounce from "../hooks/debounce";
 import Button from './Button'
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import instance from "../../hooks/instance";
+import {instance} from "../../hooks";
 import type { ProductType } from "../../@types/ProductType";;
 
 const ProductMore = () => {

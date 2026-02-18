@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction, type SubmitEvent } from "react"
 import toast from "react-hot-toast"
 import { PathPages } from "../components"
 import type { NavigateFunction } from "react-router-dom"
-import instance from "../hooks/instance"
+import {instance} from "../hooks"
 const RegisterFn = (e:SubmitEvent<HTMLFormElement>,setLoading:Dispatch<SetStateAction<boolean>>,navigate:NavigateFunction) => {
   e.preventDefault()
     setLoading(true)

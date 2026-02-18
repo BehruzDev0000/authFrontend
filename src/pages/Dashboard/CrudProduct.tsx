@@ -1,17 +1,9 @@
 import { useEffect, useState, type SubmitEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import instance from "../../hooks/instance";
+import {instance} from "../../hooks";
 import type { ProductType } from "../../@types/ProductType";
 import type { CategoryType } from "../../@types/CategoryType";
 import { Button } from "../../components";
-
-// type Controls = {
-//   title: HTMLInputElement;
-//   description: HTMLInputElement;
-//   price: HTMLInputElement;
-//   image: HTMLInputElement;
-//   categoryId: HTMLSelectElement;
-// };
 
 const CrudProduct = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction,SubmitEvent} from "react";
 import toast from "react-hot-toast";
-import instance from "../hooks/instance";
+import {instance} from "../hooks";
 
 const LoginFn = (setLoading:Dispatch<SetStateAction<boolean>>,e:SubmitEvent<HTMLFormElement>,setToken:Dispatch<SetStateAction<string>>) => {
   setLoading(true)

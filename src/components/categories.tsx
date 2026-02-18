@@ -1,5 +1,5 @@
 import { useEffect, useState, type ChangeEvent } from "react";
-import instance from "../hooks/instance";
+import { instance } from "../hooks";
 import type { CategoryType } from "../@types/CategoryType";
 import { SearchIcon } from "../assets/icons";
 
