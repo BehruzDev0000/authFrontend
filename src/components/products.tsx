@@ -1,5 +1,4 @@
 import {
-  useContext,
   useEffect,
   useState,
   type ChangeEvent,
@@ -14,11 +13,12 @@ import {
   LikeIcon,
   MoreIcon,
 } from "../assets/icons";
-import { Context } from "../context/GlobalContext";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import Modal from "./modal";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLike, handleUnlike } from "../store/ProductClice";
 
 const AllProducts = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -29,7 +29,11 @@ const AllProducts = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
-  const { likedIds, setLikedIds } = useContext(Context);
+  const dispatch = useDispatch();
+  const likedProductIds = useSelector(
+    (state: { product: { likedProductIds: number[] } }) =>
+      state.product.likedProductIds
+  );
 
   useEffect(() => {
     instance
@@ -64,14 +68,25 @@ const AllProducts = () => {
     setSelected(e.target.value);
   };
 
-  const handleLike = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+  const toggleLike = async (
+    e: MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
     e.preventDefault();
-    setLikedIds((prev) => {
-      const isLiked = prev.includes(id);
-      return isLiked
-        ? prev.filter((x) => x !== id)
-        : [...prev, id];
-    });
+
+    const isLiked = likedProductIds.includes(id);
+
+    if (isLiked) {
+      dispatch(handleUnlike(id));
+      return;
+    }
+
+    try {
+      const res = await instance.get<ProductType>(`products/${id}`);
+      dispatch(handleLike(res.data));
+    } catch {
+      toast.error("Failed to like product");
+    }
   };
 
   const handleRemoveProduct = () => {
@@ -90,6 +105,7 @@ const AllProducts = () => {
       })
       .finally(() => setLoading(false));
   };
+
 
   return (
     <div className="w-[95%] mx-auto pt-[40px] pb-[40px]">
@@ -155,7 +171,7 @@ const AllProducts = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((item) => {
-            const isLiked = likedIds.includes(item.id);
+            const isLiked = likedProductIds.includes(item.id);
 
             return (
               <div
@@ -180,7 +196,7 @@ const AllProducts = () => {
                     <button
                       type="button"
                       onClick={(e) =>
-                        handleLike(e, item.id)
+                        toggleLike(e, item.id)
                       }
                       className={`cursor-pointer w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-md border border-white/40 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-110 active:scale-95 ${
                         isLiked
