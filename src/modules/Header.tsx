@@ -6,8 +6,7 @@ import {
   LogOutIcon,
   UserIcon,
 } from "../assets/icons";
-import { useContext } from "react";
-import { Context } from "../context/GlobalContext";
+import { useSelector } from "react-redux";
 
 interface HeaderProps {
   onLogoutClick: () => void;
@@ -15,8 +14,10 @@ interface HeaderProps {
 
 const Header = ({ onLogoutClick }: HeaderProps) => {
   const navigate = useNavigate();
-  const { liked } = useContext(Context);
-
+  const likedCount = useSelector(
+    (state: { product: { likedProductIds: number[] } }) =>
+      state.product.likedProductIds.length
+  );
   return (
     <header className="relative z-50 px-8 py-6 flex items-center justify-between bg-white/50 backdrop-blur-sm sticky top-0 z-20">
       <div className="flex items-center justify-start gap-4">
@@ -42,7 +43,7 @@ const Header = ({ onLogoutClick }: HeaderProps) => {
         >
           <LikeIconNoFill />
 
-          {liked > 0 && (
+          {likedCount > 0 && (
             <span
               className="absolute -top-1 -right-1 
                      min-w-[20px] h-[20px] 
@@ -55,7 +56,7 @@ const Header = ({ onLogoutClick }: HeaderProps) => {
                      shadow-md shadow-red-500/40
                      animate-scaleIn"
             >
-              {liked}
+              {likedCount}
             </span>
           )}
         </div>
