@@ -36,7 +36,7 @@ export const GlobalContext: FC<{ children: ReactNode }> = ({ children }) => {
     setLiked(likedIds.length);
   }, [likedIds]);
 
-  const [token, setToken] = useState<string>(() => localStorage.getItem("token") || "");
+  const [token, setToken] = useState<string>(() => localStorage.getItem("token") || "test-token");
 
   useEffect(() => {
     localStorage.setItem("token", token);
