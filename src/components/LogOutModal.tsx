@@ -1,30 +1,45 @@
-const LogOutModal = ({handleLogOut, setIsOpen}: {handleLogOut: () => void, setIsOpen: (isOpen: boolean) => void}) => {
+import { LogOutIcon } from "../assets/icons"
+
+interface LogOutModalProps {
+  handleLogOut: () => void
+  setIsOpen: (isOpen: boolean) => void
+}
+
+const LogOutModal = ({ handleLogOut, setIsOpen }: LogOutModalProps) => {
   return (
-         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md m-4 overflow-hidden">
-          <div className="p-6 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Tizimdan chiqmoqchimisiz?
-            </h3>
+    <div className="w-full text-center">
+      {/* Icon */}
+      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-[var(--color-danger)]">
+        <LogOutIcon />
+      </div>
 
-            <div className="flex gap-3 justify-center mt-[20px]">
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="w-full px-4 py-2.5 bg-white text-gray-700 border border-gray-300 rounded-lg"
-              >
-                Yo'q, qolish
-              </button>
+      {/* Title */}
+      <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
+        Tizimdan chiqmoqchimisiz?
+      </h3>
+      <p className="text-[var(--color-text-secondary)] text-sm mb-6">
+        Hisobingizdan chiqib ketasiz
+      </p>
 
-              <button
-                type="button"
-                onClick={handleLogOut}
-                className="w-full px-4 py-2.5 bg-red-600 text-white rounded-lg"
-              >
-                Ha, chiqish
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Buttons */}
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="flex-1 px-4 py-3 bg-[var(--color-surface)] text-[var(--color-text-primary)] border border-[var(--color-border)] rounded-xl font-medium hover:bg-[var(--color-border)] transition-colors btn-press"
+        >
+          Yo'q, qolish
+        </button>
+
+        <button
+          type="button"
+          onClick={handleLogOut}
+          className="flex-1 px-4 py-3 bg-[var(--color-danger)] text-white rounded-xl font-medium hover:bg-red-600 transition-colors btn-press"
+        >
+          Ha, chiqish
+        </button>
+      </div>
+    </div>
   )
 }
 
